@@ -24,8 +24,8 @@ public class MatrixReactivePgModule {
         options.setDatabase("todos");
         options.setHost("localhost");
         options.setPort(5432);
-        options.setUser("postgres");
-        options.setPassword("");
+        options.setUser("user");
+        options.setPassword("password");
         options.setCachePreparedStatements(true);
         options.setMaxSize(10);
         return PgClient.pool(vertx, new PgPoolOptions(options));

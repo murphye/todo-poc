@@ -41,6 +41,7 @@ interface TodoComponent extends MatrixComponent<TodoContext> {
 class TodoContext {
     @Inject // Add Controllers to create objects with dependency injection
     public TodoContext(TodoWebController todoWebController,
-                       TodoEventController todoEventController) {}
+                       TodoEventController todoEventController,
+                       TodoInitDatabase todoInitDatabase) {}
 }
 
