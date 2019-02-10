@@ -10,28 +10,28 @@ import java.util.UUID;
 
 public class TodoService {
 
-	private TodoRepository todoRepository;
+    private TodoRepository todoRepository;
 
     @Inject
     public TodoService(TodoRepository todoRepository) {
         this.todoRepository = todoRepository;
     }
 
-	public Single<Todo> addTodo(Todo todo) {
+    public Single<Todo> addTodo(Todo todo) {
         return todoRepository.save(todo);
-	}
+    }
 
-	public Maybe<Todo> getTodo(UUID todoId) {
-		return todoRepository.findById(todoId);
-	}
+    public Maybe<Todo> getTodo(UUID todoId) {
+        return todoRepository.findById(todoId);
+    }
 
-	public Flowable<Todo> getTodos() {
-		return todoRepository.findAll();
-	}
+    public Flowable<Todo> getTodos() {
+        return todoRepository.findAll();
+    }
 
     public Completable deleteTodo(Todo todo) {
         //TODO return todoRepository.delete(todo);
-		return null;
+        return null;
     }
 
 }
