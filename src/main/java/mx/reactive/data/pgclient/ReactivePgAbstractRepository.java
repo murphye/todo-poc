@@ -10,8 +10,8 @@ import io.reactivex.Flowable;
 public abstract class ReactivePgAbstractRepository {
 
     // TODO change to static?
-    final String SELECT_STAR = "SELECT * ";
-    final String SELECT_COUNT = "SELECT count(*) ";
+    final String SELECT_STAR = "SELECT *";
+    final String SELECT_COUNT = "SELECT count(*)";
     final String FROM = " FROM ";
     final String INSERT_INTO = "INSERT INTO ";
     final String UPDATE = "UPDATE ";
