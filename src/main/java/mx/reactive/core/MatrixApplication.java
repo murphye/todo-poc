@@ -25,14 +25,12 @@ public class MatrixApplication extends AbstractVerticle {
     }
 
     public static void run(MatrixComponent... matrixComponents) {
+
         System.out.println(
-                "\n" +
-                        "   ██╗   ██╗███████╗██████╗ ████████╗██╗  ██╗\n" +
-                        "   ██║   ██║██╔════╝██╔══██╗╚══██╔══╝╚██╗██╔╝\n" +
-                        "   ██║   ██║█████╗  ██████╔╝   ██║    ╚███╔╝ \n" +
-                        "   ╚██╗ ██╔╝██╔══╝  ██╔══██╗   ██║    ██╔██╗ \n" +
-                        "    ╚████╔╝ ███████╗██║  ██║   ██║██╗██╔╝ ██╗\n" +
-                        "     ╚═══╝  ╚══════╝╚═╝  ╚═╝   ╚═╝╚═╝╚═╝  ╚═╝\n");
+                "  _  _ ____ ___ ____ _ _  _  \n" +
+                "  |\\/| |__|  |  |__/ |  \\/  \n" +
+                "  |  | |  |  |  |  \\ | _/\\_ \n");
+
 
         long begin = System.currentTimeMillis();
         for(MatrixComponent matrixComponent : matrixComponents) {

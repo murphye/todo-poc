@@ -43,8 +43,6 @@ public class TodoWebController implements WebController {
                     .consumes(MimeTypes.json.type)
                     .produces(MimeTypes.json.type);
 
-        todoRouter.get("/hello").handler(rc -> rc.response().end("hello"));
-
         todoRouter.get("/:id")
                 .handler(this::getTodo)
                 .produces(MimeTypes.json.type);
@@ -77,9 +75,6 @@ public class TodoWebController implements WebController {
     }
 
     private void getTodos(RoutingContext rc) {
-
-        System.out.println(">>>>>>>>> " + Thread.currentThread().getName());
-
         Flowable<Todo> todos = todoService.getTodos();
         end(rc, todos);
     }
@@ -87,10 +82,6 @@ public class TodoWebController implements WebController {
     private void deleteTodo(RoutingContext rc) {
         Todo todo = bodyAs(rc, Todo.class);
         Completable completable = todoService.deleteTodo(todo);
-
-        // TODO Publish the delete event
-
-
         end(rc, completable);
     }
 }
