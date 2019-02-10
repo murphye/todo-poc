@@ -31,7 +31,9 @@ class TodoApplicationTest {
     @Test
     @DisplayName("🚀 Start a server and perform requests")
     void server_test(Vertx vertx, VertxTestContext testContext) {
-        Checkpoint checkpoints = testContext.checkpoint(10);
+        final int numberOfPasses = 5;
+
+        Checkpoint checkpoints = testContext.checkpoint(numberOfPasses);
 
         HttpRequest<Todo> request = WebClient
                 .create(vertx)
@@ -40,7 +42,7 @@ class TodoApplicationTest {
 
         request
                 .rxSend()
-                .repeat(10) // TODO: Removing this or setting to a low number causes test to hang
+                .repeat(numberOfPasses)
                 .subscribe(
                         response -> testContext.verify(() -> {
                             assertThat(response.body()).isNotNull();
