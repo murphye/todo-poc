@@ -35,7 +35,7 @@ public class TodoWebController implements WebController {
 
     @Override
     @Inject
-    public void configure(Vertx vertx, Router router) {
+    public void consume(Vertx vertx, Router router) {
         Router todoRouter = subRouter(vertx, router, "/todo");
 
         todoRouter.put()

@@ -23,7 +23,7 @@ public class TodoEventController extends AbstractVerticle implements Controller<
 
     @Inject
     @Override
-    public void configure(Vertx vertx, EventBus eventBus) {
+    public void consume(Vertx vertx, EventBus eventBus) {
 
         Flowable<Todo> todoFlowable =
                 eventBus.<JsonObject>consumer("add-todo")
