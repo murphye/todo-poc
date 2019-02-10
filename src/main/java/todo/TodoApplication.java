@@ -10,9 +10,17 @@ import mx.reactive.web.MatrixWebModule;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-//////////
-
+@Singleton
+@Component(modules = {MatrixModule.class, MatrixWebModule.class, MatrixReactivePgModule.class})
+interface TodoComponent extends MatrixComponent<TodoApplication> {
+    @Component.Builder interface Builder extends MatrixComponent.Builder {}
+}
 public class TodoApplication extends MatrixApplication {
+
+    @Inject
+    public TodoApplication(TodoWebController todoWebController,
+                           TodoEventController todoEventController,
+                           TodoInitDatabase todoInitDatabase) {}
 
     public TodoApplication() {
         super (DaggerTodoComponent.builder());
@@ -22,26 +30,3 @@ public class TodoApplication extends MatrixApplication {
         new TodoApplication();
     }
 }
-
-//////////
-
-@Singleton
-@Component(modules = { // Add Modules to extend application functionality
-        MatrixModule.class,
-        MatrixWebModule.class,
-        MatrixReactivePgModule.class
-})
-interface TodoComponent extends MatrixComponent<TodoContext> {
-    @Component.Builder interface Builder extends MatrixComponent.Builder {}
-}
-
-//////////
-
-@Singleton
-class TodoContext {
-    @Inject // Add Controllers to create objects with dependency injection
-    public TodoContext(TodoWebController todoWebController,
-                       TodoEventController todoEventController,
-                       TodoInitDatabase todoInitDatabase) {}
-}
-
