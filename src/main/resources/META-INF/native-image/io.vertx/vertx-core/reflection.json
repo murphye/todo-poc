@@ -1,0 +1,19 @@
+[
+  {
+    "name": "java.util.LinkedHashMap",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ]
+  },
+  {
+    "name": "mx.reactive.web.ImmutableWebConfig$Builder",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] },
+      { "name": "build", "parameterTypes": [] }
+    ],
+    "allDeclaredFields": true,
+    "allPublicFields": true,
+    "allDeclaredMethods": true,
+    "allPublicMethods": true
+  }
+]

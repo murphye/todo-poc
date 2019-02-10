@@ -24,6 +24,8 @@
         <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
         <vertx-maven-plugin.version>1.0.18</vertx-maven-plugin.version>
         <vertx.verticle>todo.TodoApplication</vertx.verticle>
+        <fabric8-maven-plugin.version>3.5.42</fabric8-maven-plugin.version>
+        <graal.version>1.0.0-rc12</graal.version>
     </properties>
 
     <dependencyManagement>
@@ -235,5 +237,73 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>openshift</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>fabric8-maven-plugin</artifactId>
+                        <version>${fabric8-maven-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>fmp</id>
+                                <goals>
+                                    <goal>resource</goal>
+                                    <goal>build</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <enricher>
+                                <excludes>
+                                    <exclude>f8-maven-scm</exclude>
+                                </excludes>
+                                <config>
+                                    <vertx-health-check>
+                                        <path>/</path>
+                                    </vertx-health-check>
+                                </config>
+                            </enricher>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>native-image</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <version>3.0.2</version>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <mainClass>${vertx.verticle}</mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.oracle.substratevm</groupId>
+                        <artifactId>native-image-maven-plugin</artifactId>
+                        <version>${graal.version}</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>native-image</goal>
+                                </goals>
+                                <phase>package</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

@@ -60,11 +60,12 @@ public class ReactiveDataUtil {
     }
 
     public static void main(String[] args) {
-        Todo todo = ImmutableTodo.builder().id(UUID.randomUUID()).title("Some Todo").order(0).completed(false).build();
+        Todo todo = new ImmutableTodo.Builder().id(UUID.randomUUID()).title("Some Todo").order(0).completed(false).build();
         JsonObject jsonObject = JsonObject.mapFrom(todo);
 
         System.out.println(insertColumnsFromJsonObject(jsonObject));
         System.out.println(insertValuesFromJsonObject(jsonObject));
         System.out.println(updateValuesFromJsonObject(jsonObject));
     }
+
 }

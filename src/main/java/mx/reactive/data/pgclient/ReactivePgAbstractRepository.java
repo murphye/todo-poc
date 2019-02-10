@@ -42,7 +42,6 @@ public abstract class ReactivePgAbstractRepository {
                         })
                         // Commit the transaction after usage
                         .doAfterTerminate(tx::commit));
-                //.doOnComplete(pool::close); TODO: How to handle connection errors under load?
     }
 
 
@@ -54,6 +53,4 @@ public abstract class ReactivePgAbstractRepository {
                         .flatMapCompletable(result -> tx.rxCommit())
                 );
     }
-
-
 }
