@@ -39,32 +39,31 @@ public class TodoWebController implements WebController {
         Router todoRouter = subRouter(vertx, router, "/todo");
 
         todoRouter.put()
-                    .handler(this::addTodo)
-                    .consumes(MimeTypes.json.type)
-                    .produces(MimeTypes.json.type);
+                .handler(this::addTodo)
+                .consumes(MimeTypes.json.type)
+                .produces(MimeTypes.json.type);
 
         todoRouter.get("/:id")
                 .handler(this::getTodo)
                 .produces(MimeTypes.json.type);
 
         todoRouter.get()
-                    .handler(this::getTodos)
-                    .produces(MimeTypes.json.type);
+                .handler(this::getTodos)
+                .produces(MimeTypes.json.type);
 
         todoRouter.delete("/:id")
-                    .handler(this::deleteTodo);
+                .handler(this::deleteTodo);
     }
 
     private void addTodo(RoutingContext rc) {
-        // Demo sending body to Verticle which handles the save independently (just for fun)
+        // Send message body to a Verticle that handles the save operation independently (for demo purposes)
         Single<Message<JsonObject>> response = sendBody(rc, eventBus, "add-todo");
 
         response.subscribe(message -> {
-            logger.info("Message received");
-
+            // Receive the Todo that was echoed back (for demo purposes)
             Todo todo = message.body().mapTo(Todo.class);
 
-            end(rc, todo);
+            end(rc, todo); // Asynchronously complete the HTTP request
         });
     }
 

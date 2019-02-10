@@ -25,26 +25,16 @@ public class TodoEventController extends AbstractVerticle implements Controller<
     @Override
     public void consume(Vertx vertx, EventBus eventBus) {
 
-        Flowable<Todo> todoFlowable =
+        // Create a Flowable of Todo objects which originate from the EventBus
+        Flowable<Todo> todos =
                 eventBus.<JsonObject>consumer("add-todo")
                         .toFlowable()
-                        // Send back the message body to confirm receipt
+                        // Echo back the message body to confirm receipt (for demo purposes)
                         .doOnNext(message -> message.reply(message.body()))
                         .map(message -> message.body().mapTo(Todo.class));
 
-        // Demo 1 - Subscribing handler
-        //jsonObjectFlowable.subscribe(this::handleTodoJson);
-
-        // Demo 2 - Save Flowable of JsonObjects
-        //TODO: this.todoRepository.saveAllJson(jsonObjectFlowable);
-
-        // Demo 3 - Save Flowable of Todos
-        this.todoRepository.saveAll(todoFlowable);
+        this.todoRepository.saveAll(todos); // saveAll subscribes to the todos Flowable and saves each emitted Todo
 
         vertx.rxDeployVerticle(this).subscribe();
-    }
-
-    private void handleTodoJson(JsonObject jsonObject) {
-        logger.info(jsonObject.encodePrettily());
     }
 }
