@@ -9,6 +9,9 @@ import io.vertx.reactivex.core.Vertx;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+/**
+ * Simplistic database initializer that doesn't bother to check to see if DDL was already created or not.
+ */
 @Singleton
 public class TodoInitDatabase {
 
